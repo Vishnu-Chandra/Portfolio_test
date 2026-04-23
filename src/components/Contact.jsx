@@ -20,20 +20,42 @@ export default function Contact() {
       if (response.ok) {
         setStatus("success");
         form.reset();
-        setTimeout(() => setStatus(""), 5000);
       } else {
         setStatus("error");
-        setTimeout(() => setStatus(""), 5000);
       }
     } catch (error) {
       setStatus("error");
-      setTimeout(() => setStatus(""), 5000);
     }
+
+    setTimeout(() => setStatus(""), 5000);
+  };
+
+  const renderMessage = () => {
+    if (status === "success") {
+      return (
+        <div className="mb-6 p-4 bg-green-500/10 border border-green-500/30 rounded-lg flex items-center gap-3 animate-fade-in">
+          <svg className="w-6 h-6 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+          </svg>
+          <span className="text-green-400 font-medium">Message sent successfully! I'll get back to you soon.</span>
+        </div>
+      );
+    }
+    if (status === "error") {
+      return (
+        <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-lg flex items-center gap-3 animate-fade-in">
+          <svg className="w-6 h-6 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+          </svg>
+          <span className="text-red-400 font-medium">Oops! Something went wrong. Please try again.</span>
+        </div>
+      );
+    }
+    return null;
   };
 
   return (
     <section id="contact" className="px-4 sm:px-6 md:px-8 py-12 sm:py-16 md:py-20 bg-gradient-to-br from-gray-950 via-slate-900 to-gray-900 relative overflow-hidden">
-      {/* Background decoration */}
       <div className="absolute top-0 left-0 w-64 h-64 sm:w-96 sm:h-96 bg-cyan-500/10 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 right-0 w-64 h-64 sm:w-96 sm:h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
 
@@ -49,25 +71,7 @@ export default function Contact() {
         </div>
 
         <div className="bg-gray-800/40 backdrop-blur-md border border-gray-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-8 shadow-2xl">
-          {/* Success/Error Message */}
-          {status === "success" && (
-            <div className="mb-6 p-4 bg-green-500/10 border border-green-500/30 rounded-lg flex items-center gap-3 animate-fade-in">
-              <svg className="w-6 h-6 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-              </svg>
-              <span className="text-green-400 font-medium">Message sent successfully! I'll get back to you soon.</span>
-            </div>
-          )}
-          
-          {status === "error" && (
-            <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-lg flex items-center gap-3 animate-fade-in">
-              <svg className="w-6 h-6 text-red-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-              </svg>
-              <span className="text-red-400 font-medium">Oops! Something went wrong. Please try again.</span>
-            </div>
-          )}
-
+          {renderMessage()}
           <form
             action="https://formspree.io/f/xjgvozjl"
             method="POST"
@@ -75,7 +79,6 @@ export default function Contact() {
             className="space-y-4 sm:space-y-5 md:space-y-6"
           >
             <div className="grid sm:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
-              {/* Name */}
               <div className="group">
                 <label className="block text-sm font-medium text-gray-300 mb-2">
                   Name <span className="text-cyan-400">*</span>
@@ -89,7 +92,6 @@ export default function Contact() {
                 />
               </div>
 
-              {/* Email */}
               <div className="group">
                 <label className="block text-sm font-medium text-gray-300 mb-2">
                   Email <span className="text-cyan-400">*</span>
@@ -104,7 +106,6 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* Subject */}
             <div className="group">
               <label className="block text-sm font-medium text-gray-300 mb-2">
                 Subject <span className="text-cyan-400">*</span>
@@ -118,7 +119,6 @@ export default function Contact() {
               />
             </div>
 
-            {/* Message */}
             <div className="group">
               <label className="block text-sm font-medium text-gray-300 mb-2">
                 Message <span className="text-cyan-400">*</span>
